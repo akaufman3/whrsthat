@@ -61,7 +61,11 @@
     <span class="mdl-layout-title"><img src="/whrsthat.png"></span>
     <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <% if current_user == nil %>
         <a class="mdl-navigation__link" href="/">Home</a>
+        <% else %>
+        <a class="mdl-navigation__link" href="/">Events</a>
+        <% end %>
         <a class="mdl-navigation__link" href="/about">About</a>
         <a class="mdl-navigation__link" href="/contact">Contact</a>
         <!-- <a class="mdl-navigation__link" href="/login">Login</a> -->
@@ -75,14 +79,14 @@
     </div>
   </header>
   <div class="mdl-layout__drawer">
-  <span class="mdl-layout-title"><img src="/whrsthat.png"></span>
-    <nav class="mdl-navigation">
-    <a class="mdl-navigation__link" href="/">Home</a>
-    <a class="mdl-navigation__link" href="/about">About</a>
-    <a class="mdl-navigation__link" href="/contact">Contact</a>
-    <a class="mdl-navigation__link" href="">Sign Up Now!</a>
-  </nav>
-</div>
+    <span class="mdl-layout-title"><img src="/whrsthat.png"></span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="/">Home</a>
+        <a class="mdl-navigation__link" href="/about">About</a>
+        <a class="mdl-navigation__link" href="/contact">Contact</a>
+        <a class="mdl-navigation__link" href="">Sign Up Now!</a>
+      </nav>
+  </div>
 
 <main class="mdl-layout__content">
   <div class="page-content">

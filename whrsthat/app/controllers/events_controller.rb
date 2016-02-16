@@ -9,6 +9,9 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    if current_user == nil
+      redierct_to('/login')
+    end
     @events = Event.where({ user_id: current_user.id })
     @invitations = EventUser.where({ number: current_user.phone }).map { |invite| invite.event }
   end
@@ -19,18 +22,16 @@ class EventsController < ApplicationController
     @event = Event.find(params['id'])
     # @event = Event.find(params['id'])
     @invites = EventUser.where(event_id: params['id'].to_i)
-    @invites = @invites.where.not(accepted: false)
+    @accepted_invites = @invites.where.not(accepted: false)
     @new_invite = EventUser.new
     @event_place_id = @event.place_id
-
-    @invites.each { |invite|
+    @accepted_invites.each { |invite|
       @user = invite.user
       if @user.longitude && @user.latitude
         google_server_key = ENV['GOOGLE_SERVER_KEY']
         google_uri = URI("https://maps.googleapis.com/maps/api/geocode/json?latlng=#{@user.latitude},#{@user.longitude}&key=#{google_server_key}")
         result = Net::HTTP.get(google_uri)
         google_user_location_data = JSON.parse(result)
-        binding.pry
         @invite_place_id = google_user_location_data.flatten[1][0]["place_id"]
         invite.update_attributes(:place_id => @invite_place_id)
         invite_eta = URI("https://maps.googleapis.com/maps/api/directions/json?origin=place_id:#{@invite_place_id}&destination=place_id:#{@event_place_id}&mode=transit&transit_mode=subway&key=#{google_server_key}")
@@ -41,7 +42,7 @@ class EventsController < ApplicationController
       end
     }
 
-    markers = [@event, @event.user].concat(@invites)
+    markers = [@event, @event.user].concat(@accepted_invites)
      @hash = Gmaps4rails.build_markers(markers) do |obj, marker|
       if obj.class.name === 'Event'
         event = obj
@@ -108,8 +109,9 @@ class EventsController < ApplicationController
   def create
     ev_params = event_params.clone
 
-    ev_params[:time_at]  = Time.parse(ev_params[:time_at])
     ev_params[:user_id] = current_user.id
+    ev_params[:longitude] = ev_params[:longitude].to_f
+    ev_params[:latitude] = ev_params[:latitude].to_f
     @event = Event.new(ev_params, params[:event][:photo])
 
     respond_to do |format|
@@ -175,7 +177,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :caption, :time_at, :event_img_url, :lng, :lat, :photo)
+      params.require(:event).permit(:title, :caption, :time_at, :event_img_url, :longitude, :latitude, :event_address, :photo, :place_id)
     end
 
     def invite_params

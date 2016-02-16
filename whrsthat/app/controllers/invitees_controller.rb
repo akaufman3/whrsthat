@@ -10,17 +10,16 @@ class InviteesController < ApplicationController
     from_number = params['From']
     body = params['Body']
 
-    invite = EventUser.find_by(:number => from_number)
+    invite = EventUser.find_by(:number => from_number, accepted: nil)
 
-    if invite != nil && invite.user != nil && invite.accepted == false
+    if invite != nil && invite.user != nil && invite.accepted == nil
       if body.downcase.include?('y')
         invite.accepted = true
         invite.save()
-
         twilio.messages.create(
           from: ENV['TWILIO_FROM_NUMBER'],
           to: invite.number,
-          body: "Thank you for attening #{invite.event.title}. See details about this event at #{event.url}"
+          body: "Thank you for attening #{invite.event.title}. See details about this event at #{invite.event.url}"
         )
       elsif body.downcase.include?('n')
         invite.accepted = false

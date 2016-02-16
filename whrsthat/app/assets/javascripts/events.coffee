@@ -50,4 +50,28 @@ $ =>
 			$('.status').text("you've created")
 	$('#event_switch').click()
 
-	$('#event_time_at').datetimepicker()	
+	$('#event_time_at').datetimepicker()
+
+	if $('input.address').length
+		window.addressPicker = addressPicker = new AddressPicker({
+			map: {
+				id: '#new_map'
+			}
+		})
+
+		$('.address').typeahead(null, {
+	    displayKey: 'description',
+	    source: addressPicker.ttAdapter()
+	  })
+
+		$('.address').bind('typeahead:selected', addressPicker.updateMap);
+		$('.address').bind('typeahead:cursorchanged', addressPicker.updateMap);
+		$('.address').bind('typeahead:change', addressPicker.updateMap);
+
+		$(addressPicker).on('addresspicker:selected', (event, result) =>
+			debugger
+			$('.longitude').val(result.lng())
+			$('.latitude').val(result.lat())
+			$('.place_id').val(result.placeResult.place_id)
+			
+		)

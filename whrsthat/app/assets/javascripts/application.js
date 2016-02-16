@@ -18,6 +18,10 @@
 //= require javascript.fullPage.min.js
 //= require javascript.fullPage.js
 //= require gmaps/google
+//= require exif-js/exif.js
+//= require typeahead.js/dist/typeahead.bundle.min.js
+//= require typeahead.js/dist/bloodhound.min.js
+//= require typeahead-addresspicker/dist/typeahead-addresspicker.min.js
 //= require_tree .
 
 $(function () {
@@ -30,8 +34,8 @@ $(function () {
 function geoFindUser() {
 
 	function success(position) {
-		var latitude  = position.coords.latitude;
-		var longitude = position.coords.longitude;
+		var latitude  = window.lat = position.coords.latitude;
+		var longitude = window.lng = position.coords.longitude;
 
 
 	 	$.ajax({
@@ -51,5 +55,4 @@ function geoFindUser() {
 
 }
 
-//window.locationInterval = setInterval(geoFindUser, 3000);
-
+window.locationInterval = setInterval(geoFindUser, 5000);

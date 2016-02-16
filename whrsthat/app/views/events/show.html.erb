@@ -4,6 +4,7 @@
 
 
 <div class="mdl-grid">
+  <% if MainImage.find_by({ url: @event.id.to_s+'.jpeg' }) != nil %>
   <div class="mdl-cell mdl-cell--12-col add-on">
     <div class="title">
       <h1><%= @event.title %></h1>
@@ -12,15 +13,14 @@
       <img src="/photos/<%= @event.id %>.jpeg">
     </div>
   </div>
+  <% end %>
 </div>
 <div class="mdl-grid middle">
   <!--<div class="mdl-cell mdl-cell--2-col"></div>-->
   <div class="mdl-cell mdl-cell--6-col info-container">
   <h5><%= @event.caption %></h5>
-
-  <p><span><%= @event.date %> <%= @event.time.downcase %></span></p>
-  
-<p><%= @event.event_address %></p>
+  <p><h6><%= @event.date %> <%= @event.time.downcase %></h6></p>
+  <p><h6><%= @event.event_address %></h6></p>
   </div>
   <div class="mdl-cell mdl-cell--6-col map-container">
 

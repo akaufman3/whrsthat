@@ -17,6 +17,8 @@
     "jquery": "~2.2.0",
     "lodash": "^4.3.0",
     "datetimepicker": "2.4.5",
-    "material": "~0.1.1"
+    "material": "~0.1.1",
+    "exif-js": "~2.1.1",
+    "typeahead-addresspicker": "~0.1.4"
   }
 }

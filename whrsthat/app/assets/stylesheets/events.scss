@@ -63,7 +63,7 @@
 	display: inline-block;
 }
 
-#map {
+#map, #new_map {
 	display: inline-block;
 	width: 100%;
 	height: 300px;
@@ -103,4 +103,19 @@ section.invite ul {
 	width: 2em;
 	position: absolute;
 	right: 10em;
+}
+
+#new_event .twitter-typeahead {
+    left: 105px;
+}
+
+.actions {
+	text-align:center;
+	width: 100%;
+}
+
+#new_map {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 50em;
 }

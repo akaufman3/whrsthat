@@ -54,3 +54,6 @@ body {
 .no_user {
   opacity: .25;
 }
+.twitter-typeahead label:last-child {
+  display: none !important;
+}
