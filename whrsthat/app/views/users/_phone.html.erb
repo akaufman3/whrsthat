@@ -1,0 +1,27 @@
+<% 
+  def field_class
+    "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+  end
+%>
+<%= csrf_meta_tag %>
+<meta name="user-id" content="<%= current_user.id %>" />
+<div class="overlay"></div>
+<dialog class="mdl-dialog phone">
+  <h4 class="mdl-dialog__title">Please Enter your Phone Number</h4>
+  <div class="mdl-dialog__content">
+    <p>
+      In order to use connect with your friends you will need to enter your phone number below 
+    <p>
+    <div>
+      <%= form_for(current_user) do |f| %>
+      <div class="<%= field_class %>">
+        <%= f.label :phone, :class => 'mdl-textfield__label' %>
+        <%= f.text_field :phone, :class => 'mdl-textfield__input' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button submit">Save</button>
+  </div>
+</dialog>

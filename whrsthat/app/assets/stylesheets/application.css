@@ -13,6 +13,7 @@
  *= require datetimepicker/jquery.datetimepicker.css
  *= require material-design-lite/material.min.css
  *= require javascript.fullPage.css
+ *= require dialog-polyfill/dialog-polyfill.css
  *= require_tree .
  *= require_self
  */

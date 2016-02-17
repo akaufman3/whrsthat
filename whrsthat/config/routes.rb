@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
   resources :invitees 
   
-  resources :users, only: [ :new, :create, :destroy]
+  resources :users, only: [ :new, :create, :destroy, :update]
 
   resources :events
   

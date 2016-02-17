@@ -26,3 +26,10 @@
     <i class="material-icons">add</i>
   </button>
 </div>
+
+<% if !current_user.phone %>
+<%= render partial: "users/phone", locals: { user: current_user } %>
+<script>
+$(() => { $('dialog.phone')[0].showModal(); })
+</script>
+<% end %>
