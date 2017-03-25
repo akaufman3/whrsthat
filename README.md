@@ -1,8 +1,3 @@
-![WhrsThat](https://raw.githubusercontent.com/whrsthat/whrsthat/landing_page/whrsthat/public/mugatu-meme.jpg)
-No no no... You're not taking crazy pills...
-
-You're a experiencing a new way to share an event with your friends!
-
 What's WhrsThat?
 ========================
 
